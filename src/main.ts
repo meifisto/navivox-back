@@ -46,6 +46,7 @@ async function bootstrap() {
       }
     })
     .filter((item) => item !== undefined);
+  console.log('🧭 Available Routes :');
   console.log(availableRoutes);
 }
 
