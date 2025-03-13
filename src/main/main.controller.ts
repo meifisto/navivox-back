@@ -10,7 +10,7 @@ export class MainController {
     private readonly itineraryService: ItineraryService,
   ) {}
 
-  @Post()
+  @Post('path')
   async getPath(@Body() body: any, @Res() res: Response) {
     console.log('Requête reçue avec body:', body); // Vérification
     const { start_lon, start_lat, end_lon, end_lat } = body;
