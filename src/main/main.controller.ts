@@ -1,4 +1,4 @@
-import { Body, Controller, Post, Res } from '@nestjs/common';
+import { Body, Controller, Get, Post, Res } from '@nestjs/common';
 import { MainService } from './main.service';
 import { ItineraryService } from '../itinerary/itinerary.service';
 import { Response } from 'express';
@@ -21,5 +21,10 @@ export class MainController {
     );
     // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
     return res.status(response['code']).json({ data: response['data'] });
+  }
+
+  @Get('test')
+  test() {
+    return { message: 'GET fonctionne bien' };
   }
 }
