@@ -1,0 +1,25 @@
+import { Body, Controller, Post, Res } from '@nestjs/common';
+import { MainService } from './main.service';
+import { ItineraryService } from '../itinerary/itinerary.service';
+import { Response } from 'express';
+
+@Controller('main')
+export class MainController {
+  constructor(
+    private readonly mainService: MainService,
+    private readonly itineraryService: ItineraryService,
+  ) {}
+
+  @Post()
+  async getPath(@Body() body: any, @Res() res: Response) {
+    const { start_lon, start_lat, end_lon, end_lat } = body;
+    const response = await this.itineraryService.getPath(
+      start_lon,
+      start_lat,
+      end_lon,
+      end_lat,
+    );
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
+    return res.status(response['code']).json({ data: response['data'] });
+  }
+}
