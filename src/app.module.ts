@@ -14,10 +14,7 @@ import { PointsInterestsModule } from './points_interests/points_interests.modul
 
 @Module({
   imports: [
-    MongooseModule.forRoot(
-      process.env.MONGO_URI ||
-        'mongodb+srv://t:mongo@cluster1.9j48g.mongodb.net/navivox',
-    ),
+    MongooseModule.forRoot(process.env.MONGO_URI),
     UsersModule,
     AuthModule,
     RolesModule,
