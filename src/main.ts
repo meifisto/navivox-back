@@ -2,7 +2,6 @@ import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 import { existsSync, mkdirSync } from 'fs';
-import { Logger } from '@nestjs/common';
 import * as express from 'express';
 
 async function bootstrap() {
@@ -51,3 +50,5 @@ async function bootstrap() {
 }
 
 bootstrap();
+
+// npm run dev --host=192.168.124.224 --port=9999
