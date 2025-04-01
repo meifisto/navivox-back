@@ -6,13 +6,17 @@ import { Response } from 'express';
 export class TranslationController {
   constructor(private readonly translationService: TranslationService) {}
 
-  @Get('run')
-  async runPython(
+  @Get('translate')
+  async translate(
     @Query('input') input: string,
     @Res() res: Response,
   ): Promise<object> {
-    const response = await this.translationService.runPythonScript(input);
-    console.log('response::: ', response);
-    return res.status(200).json({ text: response });
+    try {
+      const translatedText = await this.translationService.translateText(input);
+      return res.status(200).json({ text: translatedText });
+    } catch (error) {
+      console.error('Translation error:', error);
+      return res.status(500).json({ error: 'Translation failed' });
+    }
   }
 }

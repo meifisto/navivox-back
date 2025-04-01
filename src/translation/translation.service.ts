@@ -1,30 +1,18 @@
 import { Injectable } from '@nestjs/common';
-import { spawn } from 'child_process';
+import { translate } from '@vitalets/google-translate-api';
 
 @Injectable()
 export class TranslationService {
-  runPythonScript(input: string): Promise<any> {
-    return new Promise((resolve, reject) => {
-      const pythonProcess = spawn('python3', ['translation.py', input]);
-
-      let output = '';
-
-      pythonProcess.stdout.on('data', (data) => {
-        output = data.toString();
+  async translateText(input: string): Promise<string> {
+    try {
+      const result = await translate(input, {
+        from: 'en',
+        to: 'fr',
       });
-
-      pythonProcess.stderr.on('data', (data) => {
-        console.error(`Erreur Python: ${data}`);
-      });
-
-      pythonProcess.on('close', (code) => {
-        try {
-          output = output.replace(/\n/g, '');
-          resolve(output);
-        } catch (error) {
-          console.log('error::: ', error);
-        }
-      });
-    });
+      return result.text;
+    } catch (error) {
+      console.error('Translation error:', error);
+      throw new Error('Translation failed');
+    }
   }
 }

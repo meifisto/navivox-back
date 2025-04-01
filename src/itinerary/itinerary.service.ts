@@ -51,11 +51,13 @@ export class ItineraryService {
         'arrive',
       ];
       const instructionsString = instructionsArray.join('; ');
+      console.log('instructionsString::: ', instructionsString);
       const translateInstructions =
-        await this.translationService.runPythonScript(instructionsString);
+        await this.translationService.translateText(instructionsString);
+      console.log('translateInstructions::: ', translateInstructions);
 
       const traductionsArray = translateInstructions.split(';');
-      // console.log('traductionsArray::: ', traductionsArray);
+      console.log('traductionsArray::: ', traductionsArray);
 
       const data = response.data;
       const route = data.routes[0];

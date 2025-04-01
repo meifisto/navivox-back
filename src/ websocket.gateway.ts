@@ -16,7 +16,8 @@ export class WebSocketGatewayService
   server: Server;
 
   handleConnection(client: any, ...args: any[]) {
-    console.log(`🟢 Client connecté : ${client.id}`);
+    // eslint-disable-next-line @typescript-eslint/restrict-template-expressions
+    console.log(`🟢 Client connecté : ${client.id}, Args: ${args}`);
   }
 
   handleDisconnect(client: any) {
