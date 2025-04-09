@@ -7,11 +7,16 @@ import {
   OnGatewayDisconnect,
 } from '@nestjs/websockets';
 import { Server } from 'socket.io';
+import { PointsInterestsService } from './points_interests/points_interests.service';
 
 @WebSocketGateway({ cors: true }) // Active CORS si l'app Flutter tourne sur un autre domaine
 export class WebSocketGatewayService
   implements OnGatewayConnection, OnGatewayDisconnect
 {
+  constructor(
+    private readonly pointsInterestsService: PointsInterestsService,
+  ) {}
+
   @WebSocketServer()
   server: Server;
 
@@ -24,16 +29,31 @@ export class WebSocketGatewayService
     console.log(`🔴 Client déconnecté : ${client.id}`);
   }
 
+  // --------------------------------------------------------------------
+
   @SubscribeMessage('message')
   handleMessage(@MessageBody() data) {
     console.log(`📩 message received : ${data}`);
     this.server.emit('message', { text: `Welcome back !` });
   }
 
-  @SubscribeMessage('instruction')
-  handleInstruction(@MessageBody() data) {
-    console.log(`📩 instruction received : ${data}`);
-    this.server.emit('instruction', { text: `In processing !` });
-  }
+  @SubscribeMessage('pointOfInterest')
+  async handleInstruction(@MessageBody() data) {
+    console.log(
+      `📩 position received from client : ${JSON.stringify(data, null, 2)}`,
+    );
+    const latitude = data.text.split(',')[0];
+    const longitude = data.text.split(',')[1];
+    console.log('latitude::: ', latitude);
+    console.log('longitude::: ', longitude);
 
+    const points = await this.pointsInterestsService.getPoinOfInterests(
+      longitude,
+      latitude,
+      80,
+    );
+    console.log('points::: ', points);
+
+    this.server.emit('pointOfInterest', { points });
+  }
 }

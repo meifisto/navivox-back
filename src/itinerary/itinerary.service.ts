@@ -104,7 +104,7 @@ export class ItineraryService {
             street_name: step.name || 'Rue inconnue',
           };
           // get point fo interests
-          if (index < 4) {
+          if (index < 2) {
             // console.log('index::: 🔵', index);
             let points = null;
             if (step['maneuver']['location']) {
@@ -114,7 +114,7 @@ export class ItineraryService {
                 lat,
                 80,
               );
-              // console.log(index, '🐤 points::: ', points);
+              console.log(index, '🐤 points::: ', points);
               object_data['point_of_interests'] = points;
             }
           }
