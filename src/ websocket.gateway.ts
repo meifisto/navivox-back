@@ -9,7 +9,7 @@ import {
 import { Server } from 'socket.io';
 import { PointsInterestsService } from './points_interests/points_interests.service';
 
-@WebSocketGateway({ cors: { origin: '*'}, transports: ['websocket'] }) // Active CORS si l'app Flutter tourne sur un autre domaine
+@WebSocketGateway({ cors: { origin: '*'}, transports: ['websocket'] })
 export class WebSocketGatewayService
   implements OnGatewayConnection, OnGatewayDisconnect
 {
