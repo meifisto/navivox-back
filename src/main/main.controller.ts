@@ -14,7 +14,7 @@ export class MainController {
   async getPath(@Body() body: any, @Res() res: Response) {
     const { start_lon, start_lat, end_lon, end_lat } = body;
     console.log(
-      `Get path for \n Start longitude: ${start_lon}, Start latitude: ${start_lat}, End longitude: ${end_lon}, End latitude: ${end_lat}`,
+      `Get path for \nStart longitude: ${start_lon}, Start latitude: ${start_lat}, End longitude: ${end_lon}, End latitude: ${end_lat}`,
     );
     const response = await this.itineraryService.getPath(
       start_lon,

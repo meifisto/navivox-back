@@ -49,15 +49,27 @@ export class ItineraryService {
         'slight right',
         'exit rotary',
         'arrive',
+        'turn',
+        'end of road'
       ];
-      const instructionsString = instructionsArray.join('; ');
-      console.log('instructionsString::: ', instructionsString);
-      const translateInstructions =
-        await this.translationService.translateText(instructionsString);
-      console.log('translateInstructions::: ', translateInstructions);
+      // const instructionsString = instructionsArray.join('; ');
+      // const translateInstructions =
+      //   await this.translationService.translateText(instructionsString);
+      // const traductionsArray = translateInstructions.split(';');
 
-      const traductionsArray = translateInstructions.split(';');
-      console.log('traductionsArray::: ', traductionsArray);
+      const traductionsArray = [
+        'démarrer',
+        'départ',
+        'droite',
+        'gauche',
+        'conduire',
+        'rejoindre',
+        'droit léger',
+        'sortir du rond-point',
+        'arrivée',
+        'tourner',
+        'fin de la route',
+      ];
 
       const data = response.data;
       const route = data.routes[0];
@@ -114,7 +126,6 @@ export class ItineraryService {
                 lat,
                 80,
               );
-              console.log(index, '🐤 points::: ', points);
               object_data['point_of_interests'] = points;
             }
           }

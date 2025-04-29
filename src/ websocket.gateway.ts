@@ -40,19 +40,21 @@ export class WebSocketGatewayService
   @SubscribeMessage('pointOfInterest')
   async handleInstruction(@MessageBody() data) {
     console.log(
-      `📩 position received from client : ${JSON.stringify(data, null, 2)}`,
+      `📩 +++++++++++++++++++++++= position received from client : ${JSON.stringify(data, null, 2)}`,
     );
     const latitude = data.text.split(',')[0];
     const longitude = data.text.split(',')[1];
+    const range = data.text.split(',')[2];
     console.log('latitude::: ', latitude);
     console.log('longitude::: ', longitude);
+    console.log('range::: ', range);
 
     const points = await this.pointsInterestsService.getPoinOfInterests(
       longitude,
       latitude,
-      80,
+      range,
     );
-    console.log('points::: ', points);
+    console.log('points récupérés ::: ', points);
 
     this.server.emit('pointOfInterest', { points });
   }
